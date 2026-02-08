@@ -1,9 +1,9 @@
-
 import { ImageResponse } from "@vercel/og";
+import React from "react";
 
 export const runtime = "edge";
 
-export async function GET(req: Request) {
+export function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 
   const team1 = searchParams.get("team1") ?? "Team 1";
@@ -25,7 +25,6 @@ export async function GET(req: Request) {
   }
 
   const templateIndex = Math.floor(Math.random() * 4) + 1;
-
   const bg = new URL(
     `/templates/template${templateIndex}.png`,
     req.url
@@ -35,8 +34,8 @@ export async function GET(req: Request) {
     (
       <div
         style={{
-          width: "1080px",
-          height: "1920px",
+          width: 1080,
+          height: 1920,
           backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
           position: "relative",
@@ -59,14 +58,14 @@ export async function GET(req: Request) {
   );
 }
 
-function teamStyle(x: number, y: number) {
+function teamStyle(x: number, y: number): React.CSSProperties {
   return {
     position: "absolute",
-    left: `${x}px`,
-    top: `${y}px`,
-    width: "300px",
+    left: x,
+    top: y,
+    width: 300,
     textAlign: "center",
-    fontSize: "42px",
+    fontSize: 42,
     fontWeight: 700,
     color: "#ffffff",
     whiteSpace: "nowrap",
@@ -75,20 +74,20 @@ function teamStyle(x: number, y: number) {
   };
 }
 
-function playerStyle(x: number, y: number) {
+function playerStyle(x: number, y: number): React.CSSProperties {
   return {
     position: "absolute",
-    left: `${x - 120}px`,
-    top: `${y}px`,
-    width: "240px",
-    height: "40px",
+    left: x - 120,
+    top: y,
+    width: 240,
+    height: 40,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "26px",
+    fontSize: 26,
     color: "#000000",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis"
   };
-  }
+}

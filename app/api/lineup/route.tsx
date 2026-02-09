@@ -36,10 +36,22 @@ export async function GET(req: Request) {
           backgroundSize: "cover",
           position: "relative",
           fontFamily: "Arial",
+          display: "flex", 
         }}
       >
-        <div style={{ position: "absolute", left: 190, top: 180 }}>{team1}</div>
-        <div style={{ position: "absolute", left: 760, top: 180 }}>{team2}</div>
+        {/* Team Names */}
+        <div style={{ position: "absolute", left: 190, top: 180, fontSize: 48, fontWeight: "bold", color: "white", textShadow: "2px 2px 4px black" }}>{team1}</div>
+        <div style={{ position: "absolute", left: 760, top: 180, fontSize: 48, fontWeight: "bold", color: "white", textShadow: "2px 2px 4px black" }}>{team2}</div>
+
+        {/* Team 1 Players (Left Column) */}
+        <div style={{ position: "absolute", left: 190, top: 450, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[0]}</div>
+        <div style={{ position: "absolute", left: 190, top: 750, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[1]}</div>
+        <div style={{ position: "absolute", left: 190, top: 1050, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[2]}</div>
+
+        {/* Team 2 Players (Right Column) */}
+        <div style={{ position: "absolute", left: 760, top: 450, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[3]}</div>
+        <div style={{ position: "absolute", left: 760, top: 750, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[4]}</div>
+        <div style={{ position: "absolute", left: 760, top: 1050, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[5]}</div>
       </div>
     ),
     { width: 1080, height: 1920 }

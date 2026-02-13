@@ -23,6 +23,11 @@ export async function GET(req: Request) {
     return new Response("All players not joined", { status: 400 });
   }
 
+  // 🔥 Load Teko font
+  const fontData = await fetch(
+    new URL("/fonts/Teko-Regular.ttf", req.url)
+  ).then(res => res.arrayBuffer());
+
   const templateIndex = Math.floor(Math.random() * 4) + 1;
   const bg = new URL(`/templates/template${templateIndex}.png`, req.url).toString();
 
@@ -35,25 +40,59 @@ export async function GET(req: Request) {
           backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
           position: "relative",
-          fontFamily: "Arial",
-          display: "flex", 
+          fontFamily: "Teko",
         }}
       >
-        {/* Team Names */}
-        <div style={{ position: "absolute", left: 190, top: 180, fontSize: 48, fontWeight: "bold", color: "white", textShadow: "2px 2px 4px black" }}>{team1}</div>
-        <div style={{ position: "absolute", left: 760, top: 180, fontSize: 48, fontWeight: "bold", color: "white", textShadow: "2px 2px 4px black" }}>{team2}</div>
+        {/* TEAM NAMES */}
+        <div style={teamStyle(190, 180)}>{team1}</div>
+        <div style={teamStyle(760, 180)}>{team2}</div>
 
-        {/* Team 1 Players (Left Column) */}
-        <div style={{ position: "absolute", left: 190, top: 450, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[0]}</div>
-        <div style={{ position: "absolute", left: 190, top: 750, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[1]}</div>
-        <div style={{ position: "absolute", left: 190, top: 1050, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[2]}</div>
+        {/* LEFT TEAM PLAYERS */}
+        <div style={playerStyle(190, 450)}>{players[0]}</div>
+        <div style={playerStyle(190, 750)}>{players[1]}</div>
+        <div style={playerStyle(190, 1050)}>{players[2]}</div>
 
-        {/* Team 2 Players (Right Column) */}
-        <div style={{ position: "absolute", left: 760, top: 450, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[3]}</div>
-        <div style={{ position: "absolute", left: 760, top: 750, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[4]}</div>
-        <div style={{ position: "absolute", left: 760, top: 1050, fontSize: 36, color: "white", fontWeight: "bold", textShadow: "2px 2px 4px black" }}>{players[5]}</div>
+        {/* RIGHT TEAM PLAYERS */}
+        <div style={playerStyle(760, 450)}>{players[3]}</div>
+        <div style={playerStyle(760, 750)}>{players[4]}</div>
+        <div style={playerStyle(760, 1050)}>{players[5]}</div>
       </div>
     ),
-    { width: 1080, height: 1920 }
+    {
+      width: 1080,
+      height: 1920,
+      fonts: [
+        {
+          name: "Teko",
+          data: fontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
+    }
   );
 }
+
+function teamStyle(left: number, top: number) {
+  return {
+    position: "absolute",
+    left,
+    top,
+    fontSize: 64,
+    fontWeight: 700,
+    color: "#000000",
+    whiteSpace: "nowrap",
+  };
+}
+
+function playerStyle(left: number, top: number) {
+  return {
+    position: "absolute",
+    left,
+    top,
+    fontSize: 48,
+    fontWeight: 500,
+    color: "#000000",
+    whiteSpace: "nowrap",
+  };
+    }
